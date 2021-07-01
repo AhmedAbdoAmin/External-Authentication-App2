@@ -1,0 +1,36 @@
+﻿@model CreateRoleViewModel
+
+<h4>Create new Role</h4>
+
+<div class="row">
+    <div class="col-ms-12 col-md-12">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="input-group input-group-lg mb-3">
+                <label asp-for="RoleName" class="input-group-text"></label>
+                <input asp-for="RoleName" class="form-control" />
+                <span asp-validation-for="RoleName" class="text-danger input-group-text"></span>
+            </div>
+            <div class="input-group input-group-lg mb-3">
+                <label asp-for="Description" class="input-group-text"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger input-group-text"></span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="input-group-text"> Permission : </th>
+                        @foreach (var item in Model.Permissions)
+                        {
+                            <th>&nbsp;&nbsp;<input type="checkbox" asp-for="IsSelectedPermission[item.Title]"></th>
+                            <th>@item.Title&nbsp;&nbsp;</th>
+                        }
+                        <th class="input-group-text text-danger">@ViewBag.ErrorPermission</th>
+                    </tr>
+                </thead>
+            </table>
+            <br />
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>

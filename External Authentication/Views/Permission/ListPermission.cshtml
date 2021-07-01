@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Permission>
+
+@{
+    ViewData["Title"] = "ListPermission";
+}
+
+<h3>List Permission</h3>
+
+<p>
+    <a asp-action="CreatePermission" class="btn btn-outline-info">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                <form asp-action="DeletePermission" asp-route-Id="@item.Permission_Id" method="post">
+                    @Html.ActionLink("Edit", "EditPermission", new { Id = item.Permission_Id },new { @class = "btn btn-outline-info", }) |
+                    <span id="confirmDeleteSpan_@item.Permission_Id" style="display:none">
+                        <span>Are you sure want to delete?</span>
+                        <button class="btn btn-danger" type="submit">Yes</button>
+                        <a class="btn btn-primary" onclick="confirmDelete('@item.Permission_Id',false)">No</a>
+                    </span>
+                    <span id="deleteSpan_@item.Permission_Id">
+
+                        <a class="btn btn-outline-danger" style="cursor:pointer"
+                           onclick="confirmDelete('@item.Permission_Id',true)">Delete</a>
+                    </span>
+                </form>
+                    
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts{ 
+    <script src="~/js/CustomScript.js"></script>
+}
